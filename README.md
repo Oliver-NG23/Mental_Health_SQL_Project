@@ -13,13 +13,13 @@ El dataset proviene de [Kaggle](https://www.kaggle.com/datasets/anth7310/mental-
 
 ## 🎯 Objetivos del Proyecto
 
-1. **Explorar y comprender la estructura del dataset** para identificar sus variables clave, distribución de datos y posibles inconsistencias que puedan afectar el análisis.  
+1. **Explorar y comprender la estructura del dataset** para identificar sus variables clave y distribución de los datos.  
 
-2. **Analizar los factores relacionados con la salud mental en el entorno laboral tecnológico**, incluyendo políticas empresariales, tamaño de la compañía y nivel de apoyo percibido por los empleados.  
+2. **Analizar los factores relacionados con la salud mental en el entorno laboral tecnológico** percibido por los empleados.  
 
 3. **Examinar patrones demográficos y geográficos** (como edad, género y país) para detectar diferencias en la percepción, el tratamiento y la conciencia sobre la salud mental.  
 
-4. **Generar insights accionables a través de consultas SQL avanzadas**, aplicando técnicas de agregación, subconsultas, y funciones de ventana para identificar tendencias, relaciones y posibles áreas de mejora en la cultura laboral del sector tecnológico.  
+4. **Generar insights accionables** para encontrar posibles áreas de mejora en la cultura laboral del sector tecnológico.  
 
 ---
 
