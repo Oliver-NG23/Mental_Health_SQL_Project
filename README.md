@@ -1,13 +1,25 @@
 # 🧠 Mental Health in the Tech Industry – SQL Analysis
 
 Este proyecto explora el dataset **“Mental Health in the Tech Industry”**, el cual reúne información sobre la salud mental de personas que trabajan en el sector tecnológico.  
-El objetivo principal es **profundizar en la comprensión del dataset** y **demostrar habilidades intermedias y avanzadas en SQL**, resolviendo una serie de preguntas que incrementan progresivamente en dificultad.
+El objetivo principal es **comprender los factores que influyen en la salud mental dentro de la industria tecnológica** mediante consultas SQL que van aumentando en dificultad.
 
 ---
 
 ## 📊 Descripción del Dataset
 
-El dataset proviene de [Kaggle](https://www.kaggle.com/datasets/anth7310/mental-health-in-the-tech-industry) y contiene respuestas anónimas de trabajadores del sector tecnológico sobre distintos aspectos de su salud mental, su entorno laboral y la cultura empresarial que los rodea.
+El dataset proviene de [Kaggle](https://www.kaggle.com/datasets/anth7310/mental-health-in-the-tech-industry) y contiene respuestas anónimas de profesionales del sector tecnológico sobre distintos aspectos de su salud mental y su entorno laboral.
+
+---
+
+## 🎯 Objetivos del Proyecto
+
+1. **Explorar y comprender la estructura del dataset** para identificar sus variables clave, distribución de datos y posibles inconsistencias que puedan afectar el análisis.  
+
+2. **Analizar los factores relacionados con la salud mental en el entorno laboral tecnológico**, incluyendo políticas empresariales, tamaño de la compañía y nivel de apoyo percibido por los empleados.  
+
+3. **Examinar patrones demográficos y geográficos** (como edad, género y país) para detectar diferencias en la percepción, el tratamiento y la conciencia sobre la salud mental.  
+
+4. **Generar insights accionables a través de consultas SQL avanzadas**, aplicando técnicas de agregación, subconsultas, y funciones de ventana para identificar tendencias, relaciones y posibles áreas de mejora en la cultura laboral del sector tecnológico.  
 
 ---
 
@@ -33,3 +45,4 @@ El dataset proviene de [Kaggle](https://www.kaggle.com/datasets/anth7310/mental-
 11. ¿Cómo cambia el nivel de estrés promedio según los años trabajados en la empresa (agrupando por rangos)?  
 12. Calcula el percentil de salario por país y analiza si los trabajadores con salarios más altos (percentil 90 o superior) tienden a recibir más o menos tratamiento que el resto.
 
+---
