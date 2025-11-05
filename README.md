@@ -27,7 +27,21 @@ El dataset proviene de [Kaggle](https://www.kaggle.com/datasets/anth7310/mental-
 
 ### Nivel 1 – Exploración básica
 1. ¿Cuántas personas se encuestarón?
-``` CREATE TABLE empleados ( id INT PRIMARY KEY, nombre VARCHAR(100), puesto VARCHAR(50), salario DECIMAL(10, 2) ); -- Insertar datos INSERT INTO empleados (id, nombre, puesto, salario) VALUES (1, 'Ana López', 'Desarrolladora', 3500.00); -- Consultar datos SELECT * FROM empleados WHERE salario > 3000; ```
+```sql
+-- Crear una tabla de empleados
+CREATE TABLE empleados (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    puesto VARCHAR(50),
+    salario DECIMAL(10, 2)
+);
+
+-- Insertar un registro de ejemplo
+INSERT INTO empleados (id, nombre, puesto, salario)
+VALUES (1, 'Ana López', 'Desarrolladora', 3500.00);
+
+-- Consultar empleados con salario mayor a 3000
+SELECT * FROM empleados WHERE salario > 3000;
 
 1. ¿Cuántas columnas hay y cuáles son sus nombres?  
 2. ¿Cuál es la distribución de los encuestados por país o género?
