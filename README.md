@@ -1,7 +1,7 @@
 # 🧠 Mental Health in the Tech Industry – SQL Analysis
 
 Este proyecto explora el dataset **“Mental Health in the Tech Industry”**, el cual reúne información sobre la salud mental de personas que trabajan en el sector tecnológico.  
-El objetivo principal es **comprender los factores que influyen en la salud mental dentro de la industria tecnológica** mediante consultas SQL que van aumentando en dificultad.
+El objetivo principal es **comprender los factores que influyen en la salud mental dentro de la industria tecnológica** mediante consultas SQL.
 
 ---
 
