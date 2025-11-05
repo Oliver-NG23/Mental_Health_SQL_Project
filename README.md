@@ -25,17 +25,39 @@ El dataset proviene de [Kaggle](https://www.kaggle.com/datasets/anth7310/mental-
 
 ## ❓ Preguntas de Análisis SQL
 
-### Nivel 1 – Exploración básica
-1. ¿Cuántas personas se encuestarón?
+1. ¿Cúantos participantes aplicaron la encuesta durante los años?
 ```sql
-SELECT COUNT(*) AS total_encuestados
-FROM Answer;
+SELECT s.SurveyID, s.Description, COUNT(a.AnswerText) AS TotalAnswers
+FROM Answer a
+JOIN Survey s ON a.SurveyID = s.SurveyID
+GROUP BY s.SurveyID, s.Description
+ORDER BY s.SurveyID;
 ```
-2. ¿Cuál es la distribución de los encuestados por país?
-
-
+**Objetivo:** Saber cuantas personas participaron en la aplicacion de la encuesta a lo largo de los años
+2. ¿De que paises provienen los encuestados?
+```sql
+SELECT 
+	CASE WHEN answertext IN ('United States of America','United States') THEN 'United States'
+    ELSE answertext END AS pais, COUNT(*) AS cuenta
+FROM Answer
+WHERE questionid = 3 AND answertext NOT IN( '-1', 'N/A','') AND answertext IS NOT NULL
+GROUP BY pais
+ORDER BY cuenta DESC;
+```
+**Objetivo:** Conocer de que países provienen los encuestados
 ### Nivel 2 – Filtrado y agrupaciones simples
-4. ¿Qué porcentaje de encuestados ha recibido tratamiento para su salud mental?  
+4. ¿Qué porcentaje de encuestados ha recibido tratamiento para su salud mental? 
+```sql
+SELECT CASE WHEN a.AnswerText = 1 THEN 'YES' ELSE 'NO' END AS Respuesta,
+	COUNT(a.AnswerText) AS Total_Respuesta,
+    ROUND(COUNT(*) * 100.0 / SUM (COUNT(*)) OVER (),4) AS porcentaje
+FROM Answer AS a
+JOIN Question AS q
+ON a.QuestionID = q.QuestionID
+WHERE q.QuestionText LIKE '%Have you ever sought treatment%'
+group by a.AnswerText;
+```
+**Objetivo:** Conocer antecedentes de los empleados y su distribucion
 5. ¿Cuál es el salario promedio por género o por país?  
 6. ¿Cuántos encuestados indicaron que su empresa tiene una política de salud mental, y cuántos no?
 
