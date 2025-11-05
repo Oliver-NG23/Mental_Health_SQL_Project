@@ -34,6 +34,7 @@ GROUP BY s.SurveyID, s.Description
 ORDER BY s.SurveyID;
 ```
 **Objetivo:** Saber cuantas personas participaron en la aplicacion de la encuesta a lo largo de los años
+
 2. ¿De que paises provienen los encuestados?
 ```sql
 SELECT 
@@ -46,6 +47,7 @@ ORDER BY cuenta DESC;
 ```
 **Objetivo:** Conocer de que países provienen los encuestados
 ### Nivel 2 – Filtrado y agrupaciones simples
+
 4. ¿Qué porcentaje de encuestados ha recibido tratamiento para su salud mental? 
 ```sql
 SELECT CASE WHEN a.AnswerText = 1 THEN 'YES' ELSE 'NO' END AS Respuesta,
@@ -58,6 +60,7 @@ WHERE q.QuestionText LIKE '%Have you ever sought treatment%'
 group by a.AnswerText;
 ```
 **Objetivo:** Conocer antecedentes de los empleados y su distribucion
+
 5. ¿Cuál es el salario promedio por género o por país?  
 6. ¿Cuántos encuestados indicaron que su empresa tiene una política de salud mental, y cuántos no?
 
