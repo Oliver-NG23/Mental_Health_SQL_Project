@@ -29,7 +29,8 @@ El dataset proviene de [Kaggle](https://www.kaggle.com/datasets/anth7310/mental-
 ```sql
 SELECT s.SurveyID, s.Description, COUNT(a.AnswerText) AS TotalAnswers
 FROM Answer a
-JOIN Survey s ON a.SurveyID = s.SurveyID
+JOIN Survey s 
+ON a.SurveyID = s.SurveyID
 GROUP BY s.SurveyID, s.Description
 ORDER BY s.SurveyID;
 ```
@@ -45,10 +46,7 @@ WHERE questionid = 3 AND answertext NOT IN( '-1', 'N/A','') AND answertext IS NO
 GROUP BY pais
 ORDER BY cuenta DESC;
 ```
-**Objetivo:** Conocer de que países provienen los encuestados
-### Nivel 2 – Filtrado y agrupaciones simples
-
-4. ¿Qué porcentaje de encuestados ha recibido tratamiento para su salud mental? 
+3. ¿Qué porcentaje de encuestados ha recibido tratamiento para su salud mental? 
 ```sql
 SELECT CASE WHEN a.AnswerText = 1 THEN 'YES' ELSE 'NO' END AS Respuesta,
 	COUNT(a.AnswerText) AS Total_Respuesta,
@@ -60,14 +58,41 @@ WHERE q.QuestionText LIKE '%Have you ever sought treatment%'
 group by a.AnswerText;
 ```
 **Objetivo:** Conocer antecedentes de los empleados y su distribucion
+4. ¿Cuáles son los 5 países con mayor porcentaje de encuestados que reportan haber recibido tratamiento?
+```sql
+SELECT  
+	CASE 
+        WHEN a.AnswerText IN ('United States of America', 'United States') THEN 'United States'
+        ELSE a.AnswerText 
+    END AS Pais,
+    COUNT(DISTINCT a.UserID) AS Total_Usuarios,
+    ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 4) AS Porcentaje
+FROM Answer AS a
+JOIN Question AS q
+    ON a.QuestionID = q.QuestionID
+JOIN Survey AS s
+    ON a.SurveyID = s.SurveyID
+WHERE q.QuestionText LIKE '%country%' AND answertext NOT IN( '-1', 'N/A','') 
+  AND answertext IS NOT NULL
+  AND a.UserID IN(
+        SELECT subA.UserID
+        FROM Answer AS subA
+        JOIN Question AS subQ
+            ON subA.QuestionID = subQ.QuestionID
+        WHERE subQ.QuestionText LIKE '%Have you ever sought treatment%'
+          AND subA.AnswerText = '1')
+GROUP BY Pais
+ORDER BY Porcentaje DESC, s.SurveyID DESC
+LIMIT 5;
+```
+**Objetivo:** Conocer si es un factor el pais de procedencia recibir tratamiento para la salud mental
+5. ¿Existe relación entre el tamaño de la empresa y la probabilidad de haber recibido tratamiento?  
 
-5. ¿Cuál es el salario promedio por género o por país?  
+ 
 6. ¿Cuántos encuestados indicaron que su empresa tiene una política de salud mental, y cuántos no?
 
-### Nivel 3 – Relaciones e indicadores más complejos
-7. ¿Existe relación entre el tamaño de la empresa y la probabilidad de haber recibido tratamiento?  
+### Nivel 3 – Relaciones e indicadores más complejos 
 8. ¿Cómo varía la edad promedio entre quienes han recibido tratamiento y quienes no?  
-9. ¿Cuáles son los 5 países con mayor porcentaje de encuestados que reportan haber recibido tratamiento?
 
 ### Nivel 4 – Subconsultas y funciones avanzadas
 10. Para cada empresa, ¿qué porcentaje de empleados se siente cómodo hablando de salud mental con su supervisor?  
