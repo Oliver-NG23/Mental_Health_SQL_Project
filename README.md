@@ -58,6 +58,7 @@ WHERE q.QuestionText LIKE '%Have you ever sought treatment%'
 group by a.AnswerText;
 ```
 **Objetivo:** Conocer antecedentes de los empleados y su distribucion
+
 4. ¿Cuáles son los 5 países con mayor porcentaje de encuestados que reportan haber recibido tratamiento?
 ```sql
 SELECT  
@@ -86,6 +87,7 @@ ORDER BY Porcentaje DESC, s.SurveyID DESC
 LIMIT 5;
 ```
 **Objetivo:** Conocer si es un factor el pais de procedencia recibir tratamiento para la salud mental
+
 5. ¿Existe relación entre el tamaño de la empresa y la probabilidad de haber recibido tratamiento?  
 
  
