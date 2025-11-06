@@ -64,8 +64,7 @@ group by a.AnswerText;
 SELECT  
 	CASE 
         WHEN a.AnswerText IN ('United States of America', 'United States') THEN 'United States'
-        ELSE a.AnswerText 
-    END AS Pais,
+        ELSE a.AnswerText END AS Pais,
     COUNT(DISTINCT a.UserID) AS Total_Usuarios,
     ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 4) AS Porcentaje
 FROM Answer AS a
