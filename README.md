@@ -88,8 +88,31 @@ LIMIT 5;
 **Objetivo:** Conocer si es un factor el pais de procedencia recibir tratamiento para la salud mental
 
 5. ¿Existe relación entre el tamaño de la empresa y la probabilidad de haber recibido tratamiento?  
+```sql
+SELECT 
+    CASE WHEN a1.AnswerText IN ('1-5','6-25') THEN 'Small'
+    WHEN a1.AnswerText IN('26-100','100-500') THEN 'Medium'
+    WHEN a1.AnswerText IN('500-1000','More than 1000') THEN 'Big' END AS Tamaño_de_Compañia,
+    SUM(CASE WHEN a2.AnswerText = 1 THEN 1 ELSE 0 END) as Respuesta_Yes,
+    SUM(CASE WHEN a2.AnswerText = 0 THEN 1 ELSE 0 END) as Respuesta_No,
+    SUM(CASE WHEN a2.AnswerText IN (1,0) THEN 1 ELSE 0 END) AS TotalPeople,
+    ROUND(SUM(CASE WHEN a2.AnswerText = 1 THEN 1 ELSE 0 END) * 100.0 / 
+          SUM(CASE WHEN a2.AnswerText IN (1,0) THEN 1 ELSE 0 END),2) AS Porcentaje_Tratamiento
+FROM Answer AS a1
+JOIN Question AS q1
+	ON a1.QuestionID = q1.QuestionID
+JOIN Answer as a2
+	ON a1.UserID = a2.UserID AND a1.SurveyID = a2.SurveyID
+JOIN Question q2
+	ON a2.QuestionID = q2.QuestionID
+WHERE q1.QuestionText LIKE '%How many employees%' 
+  AND q2.QuestionText LIKE '%treatment%' 
+  AND a1.AnswerText NOT IN ('-1', 'N/A', '') AND a1.AnswerText IS NOT NULL
+GROUP BY Tamaño_de_Compañia
+ORDER BY Porcentaje_Tratamiento DESC;
+```
+**Objetivo:** Conocer si hay relacion entre el tamaño de empresa y la probabilidad de recibir tratamiento
 
- 
 6. ¿Cuántos encuestados indicaron que su empresa tiene una política de salud mental, y cuántos no?
 
 ### Nivel 3 – Relaciones e indicadores más complejos 
