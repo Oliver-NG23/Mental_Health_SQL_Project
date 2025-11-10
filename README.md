@@ -136,8 +136,30 @@ ORDER BY Total_Usuarios DESC;
 ```
 **Objetivo:** Conocer si existen diferencias de genero en la busqueda de tratamiento
 
-### Nivel 3 – Relaciones e indicadores más complejos 
-8. ¿Cómo varía la edad promedio entre quienes han recibido tratamiento y quienes no?  
+8. ¿Las personas que trabajan en diferentes entornos de trabajo muestran diferencias en salud mental?
+```sql
+SELECT 
+    CASE WHEN a1.AnswerText= 'Sometimes' THEN 'Hybrid' 
+    WHEN a1.AnswerText='Always' THEN 'Presencial'
+    when a1.AnswerText='Never' then 'Remote'end AS TipoTrabajo,
+    COUNT(DISTINCT a1.UserID) AS Total_Usuarios
+FROM Answer AS a1
+JOIN Question AS q1 
+	ON a1.QuestionID = q1.QuestionID
+WHERE q1.QuestionText LIKE '%Do you work remotely?%'
+	AND a1.UserID IN (
+      SELECT subA.UserID
+      FROM Answer AS subA
+      JOIN Question as subQ
+      	ON subA.QuestionID = subQ.questionid
+      WHERE subQ.questiontext LIKE '%Have you ever sought treatment%'
+      	AND subA.AnswerText = '1')
+GROUP BY TipoTrabajo
+ORDER BY Total_Usuarios DESC;
+```
+**Objetivo:** Identificar si el entorno de trabajo influye en los niveles de estrés o necesidad de tratamiento
+
+
 
 ### Nivel 4 – Subconsultas y funciones avanzadas
 10. Para cada empresa, ¿qué porcentaje de empleados se siente cómodo hablando de salud mental con su supervisor?  
