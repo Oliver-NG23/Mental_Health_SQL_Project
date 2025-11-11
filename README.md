@@ -39,6 +39,22 @@ ORDER BY s.SurveyID;
 2. ¿De que paises provienen los encuestados?
 ```sql
 SELECT 
+    s.SurveyID AS Año,
+    ROUND(SUM(CASE WHEN a.AnswerText = '1' THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS Porcentaje_Tratamiento
+FROM Answer a
+JOIN Question q 
+	ON a.QuestionID = q.QuestionID
+JOIN Survey s 
+	ON a.SurveyID = s.SurveyID
+WHERE q.QuestionText LIKE '%Have you ever sought treatment%'
+GROUP BY s.SurveyID, s.Description
+ORDER BY s.SurveyID;
+```
+**Objetivo:** Conocer la variacion de haber recibido tratamiento a lo largo de los años
+
+3. ¿De que paises provienen los encuestados?
+```sql
+SELECT 
 	CASE WHEN answertext IN ('United States of America','United States') THEN 'United States'
     ELSE answertext END AS pais, COUNT(*) AS cuenta
 FROM Answer
@@ -46,7 +62,7 @@ WHERE questionid = 3 AND answertext NOT IN( '-1', 'N/A','') AND answertext IS NO
 GROUP BY pais
 ORDER BY cuenta DESC;
 ```
-3. ¿Qué porcentaje de encuestados ha recibido tratamiento para su salud mental? 
+4. ¿Qué porcentaje de encuestados ha recibido tratamiento para su salud mental? 
 ```sql
 SELECT CASE WHEN a.AnswerText = 1 THEN 'YES' ELSE 'NO' END AS Respuesta,
 	COUNT(a.AnswerText) AS Total_Respuesta,
@@ -59,7 +75,7 @@ group by a.AnswerText;
 ```
 **Objetivo:** Conocer antecedentes de los empleados y su distribucion
 
-4. ¿Cuáles son los 5 países con mayor porcentaje de encuestados que reportan haber recibido tratamiento?
+5. ¿Cuáles son los 5 países con mayor porcentaje de encuestados que reportan haber recibido tratamiento?
 ```sql
 SELECT  
 	CASE 
@@ -87,7 +103,7 @@ LIMIT 5;
 ```
 **Objetivo:** Conocer si es un factor el pais de procedencia recibir tratamiento para la salud mental
 
-5. ¿Existe relación entre el tamaño de la empresa y la probabilidad de haber recibido tratamiento?  
+6. ¿Existe relación entre el tamaño de la empresa y la probabilidad de haber recibido tratamiento?  
 ```sql
 SELECT 
     CASE WHEN a1.AnswerText IN ('1-5','6-25') THEN 'Small'
@@ -113,7 +129,7 @@ ORDER BY Porcentaje_Tratamiento DESC;
 ```
 **Objetivo:** Conocer si hay relacion entre el tamaño de empresa y la probabilidad de recibir tratamiento
 
-6. ¿Cuál es la realción entre el género y la probabilidad de haber recibido tratamiento?
+7. ¿Cuál es la realción entre el género y la probabilidad de haber recibido tratamiento?
 ```sql
 SELECT 
     CASE WHEN a1.AnswerText IN ('Masculine','Male','male','MALE','masculino') THEN 'Male'
@@ -136,7 +152,7 @@ ORDER BY Total_Usuarios DESC;
 ```
 **Objetivo:** Conocer si existen diferencias de genero en la busqueda de tratamiento
 
-7. ¿Las personas que trabajan en diferentes entornos de trabajo muestran diferencias en salud mental?
+8. ¿Las personas que trabajan en diferentes entornos de trabajo muestran diferencias en salud mental?
 ```sql
 SELECT 
     CASE WHEN a1.AnswerText= 'Sometimes' THEN 'Hybrid' 
@@ -159,7 +175,7 @@ ORDER BY Total_Usuarios DESC;
 ```
 **Objetivo:** Identificar si el entorno de trabajo influye en los niveles de estrés o necesidad de tratamiento
  
-8. ¿Qué factores (país, género, tamaño de empresa, cultura laboral) parecen correlacionarse más con el tratamiento?
+9. ¿Qué factores (país, género, tamaño de empresa, cultura laboral) parecen correlacionarse más con el tratamiento?
 ```sql
 WITH pais AS (
     SELECT a.UserID,
@@ -242,5 +258,4 @@ ORDER BY Total_Usuarios DESC,Porcentaje_Tratamiento DESC;
 ```
 **Objetivo:** Identificar factores están más asociados a tener tratamiento de salud mental 
 
-9. 
 ---
