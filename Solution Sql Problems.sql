@@ -8,8 +8,6 @@ ON a.SurveyID = s.SurveyID
 GROUP BY s.SurveyID, s.Description
 ORDER BY s.SurveyID;
 
---Objetivo: Saber cuantas personas participaron en la aplicacion de la encuesta a lo largo de los años
-
 --2. ¿Como ha cambiado a lo largo de los años el porcentaje de empleados con tratamiento?
 
 SELECT 
@@ -23,8 +21,6 @@ JOIN Survey s
 WHERE q.QuestionText LIKE '%Have you ever sought treatment%'
 GROUP BY s.SurveyID, s.Description
 ORDER BY s.SurveyID;
-
---**Objetivo:** Conocer la variacion de haber recibido tratamiento a lo largo de los años
 
 --3. ¿De que paises provienen los encuestados?
 
@@ -45,9 +41,7 @@ FROM Answer AS a
 JOIN Question AS q
 ON a.QuestionID = q.QuestionID
 WHERE q.QuestionText LIKE '%Have you ever sought treatment%'
-group by a.AnswerText;
-
---**Objetivo:** Conocer antecedentes de los empleados y su distribucion
+GROUP BY a.AnswerText;
 
 --5. ¿Cuáles son los 5 países con mayor porcentaje de encuestados que reportan haber recibido tratamiento?
 
@@ -75,7 +69,6 @@ GROUP BY Pais
 ORDER BY Porcentaje DESC, s.SurveyID DESC
 LIMIT 5;
 
---**Objetivo:** Conocer si es un factor el pais de procedencia recibir tratamiento para la salud mental
 
 --6. ¿Existe relación entre el tamaño de la empresa y la probabilidad de haber recibido tratamiento?  
 
@@ -101,8 +94,6 @@ WHERE q1.QuestionText LIKE '%How many employees%'
 GROUP BY Tamaño_de_Compañia
 ORDER BY Porcentaje_Tratamiento DESC;
 
---**Objetivo:** Conocer si hay relacion entre el tamaño de empresa y la probabilidad de recibir tratamiento
-
 --7. ¿Cuál es la realción entre el género y la probabilidad de haber recibido tratamiento?
 
 SELECT 
@@ -124,7 +115,6 @@ WHERE q1.QuestionText LIKE '%What is your gender%' AND a1.AnswerText NOT IN ('-1
 GROUP BY Genero
 ORDER BY Total_Usuarios DESC;
 
---**Objetivo:** Conocer si existen diferencias de genero en la busqueda de tratamiento
 
 --8. ¿Las personas que trabajan en diferentes entornos de trabajo muestran diferencias en salud mental?
 
@@ -146,8 +136,6 @@ WHERE q1.QuestionText LIKE '%Do you work remotely?%'
       	AND subA.AnswerText = '1')
 GROUP BY TipoTrabajo
 ORDER BY Total_Usuarios DESC;
-
---**Objetivo:** Identificar si el entorno de trabajo influye en los niveles de estrés o necesidad de tratamiento
  
 --9. ¿Qué factores (país, género, tamaño de empresa, cultura laboral) parecen correlacionarse más con el tratamiento?
 
@@ -230,7 +218,6 @@ FROM data
 GROUP BY Pais, Genero, Tamaño_de_Compañia, TipoTrabajo
 ORDER BY Total_Usuarios DESC,Porcentaje_Tratamiento DESC;
 
---**Objetivo:** Identificar factores están más asociados a tener tratamiento de salud mental 
 
 --10.¿Las personas que han tenido problemas de salud mental alguna vez los comunican a su empleador?
 
@@ -253,4 +240,3 @@ WHERE q1.QuestionText LIKE '%Have you ever discussed your mental health with you
 GROUP BY Comunicacion_Empleador
 ORDER BY Porcentaje_Usuarios DESC;
 
-**Objetivo:** Evaluar la comunicacion dentro de la empresa
