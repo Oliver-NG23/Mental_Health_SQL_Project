@@ -1,13 +1,13 @@
 
 1. ¿Cúantos participantes aplicaron la encuesta durante los años?
-```sql
+
 SELECT s.SurveyID, s.Description, COUNT(a.AnswerText) AS TotalAnswers
 FROM Answer AS a
 JOIN Survey AS s 
 ON a.SurveyID = s.SurveyID
 GROUP BY s.SurveyID, s.Description
 ORDER BY s.SurveyID;
-```
+
 **Objetivo:** Saber cuantas personas participaron en la aplicacion de la encuesta a lo largo de los años
 
 2. ¿Como ha cambiado a lo largo de los años el porcentaje de empleados con tratamiento?
